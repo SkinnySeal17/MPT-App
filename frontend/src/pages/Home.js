@@ -58,15 +58,6 @@ function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [particleCount, setParticleCount] = useState(0);
-  const [liveStats, setLiveStats] = useState({
-    activeUsers: 0,
-    sessionsToday: 0,
-    bookingsThisWeek: 0,
-    lastUpdate: new Date()
-  });
-  const [weatherData, setWeatherData] = useState(null);
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   // Premium Refs for Advanced Animations
   const heroRef = useRef(null);
@@ -74,40 +65,14 @@ function Home() {
   const featuresRef = useRef(null);
   const testimonialsRef = useRef(null);
 
-  // Dynamic Effects and Real-time Updates
+  // Mouse tracking for dynamic effects
   useEffect(() => {
-    // Real-time clock
-    const timeInterval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
-    // Simulate live stats updates
-    const statsInterval = setInterval(() => {
-      setLiveStats(prev => ({
-        activeUsers: Math.floor(Math.random() * 50) + 10,
-        sessionsToday: Math.floor(Math.random() * 20) + 5,
-        bookingsThisWeek: Math.floor(Math.random() * 100) + 30,
-        lastUpdate: new Date()
-      }));
-    }, 5000);
-
-    // Online/offline detection
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    // Mouse tracking for dynamic effects
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
-      clearInterval(timeInterval);
-      clearInterval(statsInterval);
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
@@ -294,50 +259,7 @@ function Home() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [isHovering, particleCount]);
 
-  // Dynamic Live Stats Section
-  const renderLiveStats = () => (
-    <section className="live-stats-section">
-      <div className="container">
-        <div className="live-stats-header">
-          <h2>Live Activity</h2>
-          <div className="status-indicator">
-            <span className={`status-dot ${isOnline ? 'online' : 'offline'}`}></span>
-            <span className="status-text">{isOnline ? 'Live' : 'Offline'}</span>
-            <span className="current-time">{currentTime.toLocaleTimeString()}</span>
-          </div>
-        </div>
-        <div className="live-stats-grid">
-          <div className="stat-card">
-            <div className="stat-icon">👥</div>
-            <div className="stat-content">
-              <div className="stat-number">{liveStats.activeUsers}</div>
-              <div className="stat-label">Active Users</div>
-            </div>
-            <div className="stat-trend">↗️ +5%</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">📅</div>
-            <div className="stat-content">
-              <div className="stat-number">{liveStats.sessionsToday}</div>
-              <div className="stat-label">Sessions Today</div>
-            </div>
-            <div className="stat-trend">↗️ +12%</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">📊</div>
-            <div className="stat-content">
-              <div className="stat-number">{liveStats.bookingsThisWeek}</div>
-              <div className="stat-label">Bookings This Week</div>
-            </div>
-            <div className="stat-trend">↗️ +8%</div>
-          </div>
-        </div>
-        <div className="last-update">
-          Last updated: {liveStats.lastUpdate.toLocaleTimeString()}
-        </div>
-      </div>
-    </section>
-  );
+
 
   // Premium Render Methods with Luxury Enhancements
   const renderHeroSection = () => (
@@ -572,7 +494,6 @@ function Home() {
   return (
     <div className="home-page luxury-home-page">
       {renderHeroSection()}
-      {renderLiveStats()}
       {renderMPTSection()}
       {renderProfessionalServices()}
       {renderFeaturesSection()}
