@@ -1,24 +1,29 @@
 services:
-  # Frontend Service (React)
+  # Frontend (React) — Static Site
   - type: web
     name: ppt-app-frontend
-    buildCommand: cd frontend && npm install && npm run build
+    runtime: static
+    buildCommand: cd frontend && npm ci && npm run build
     staticPublishPath: frontend/build
+    autoDeployTrigger: commit
+    plan: starter
     envVars:
       - key: REACT_APP_API_URL
         value: https://ppt-app-backend.onrender.com
-    autoDeploy: true
-    plan: starter
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
 
-  # Backend Service (Spring Boot)
+  # Backend (Spring Boot) — Docker
   - type: web
     name: ppt-app-backend
-    buildCommand: cd clean-spring-boot && ./mvnw clean package -DskipTests
-    startCommand: cd clean-spring-boot && java -jar target/mpt-0.0.1-SNAPSHOT.jar
+    runtime: docker
+    dockerfilePath: ./clean-spring-boot/Dockerfile
+    autoDeployTrigger: commit
+    plan: starter
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
       - key: ALLOWED_ORIGINS
         value: https://ppt-app-frontend.onrender.com
-    autoDeploy: true
-    plan: starter
