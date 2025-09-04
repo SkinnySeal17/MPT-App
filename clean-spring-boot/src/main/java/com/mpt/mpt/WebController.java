@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 @Controller
 public class WebController {
 
-    @GetMapping(value = {"/", "/{path:^(?!api).*}/**"})
+    @GetMapping(value = {"/", "/{path:^(?!api|static).*}/**"})
     public ResponseEntity<String> serveReactApp(@PathVariable(required = false) String path) {
         try {
             Resource resource = new ClassPathResource("static/index.html");

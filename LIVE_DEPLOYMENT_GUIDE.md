@@ -4,10 +4,9 @@
 This guide will help you deploy your MPT website to a live server that works exactly like your localhost.
 
 ## 🎯 What You'll Get
-- **Live Website:** `https://mpt-frontend.onrender.com`
-- **Live Backend:** `https://mpt-backend.onrender.com`
-- **Live Admin:** `https://mpt-frontend.onrender.com/admin`
-- **Live Database:** MySQL hosted on Render
+- **Single Live URL:** `https://ppt-app.onrender.com`
+- **Everything in One Place:** Frontend, Backend, Admin, Database
+- **Real Website Experience:** Just like localhost but live!
 
 ## 🚀 Quick Deployment Steps
 
@@ -73,14 +72,13 @@ If you prefer manual deployment:
    - **Name:** `ppt-app-database`
    - **Database:** `ppt_app_db`
 
-## 🌐 Your Live URLs
+## 🌐 Your Live URL
 
 After deployment, your website will be available at:
 
-- **🏠 Main Website:** `https://ppt-app-frontend.onrender.com`
-- **🔧 Admin Panel:** `https://ppt-app-frontend.onrender.com/admin`
-- **📊 Backend API:** `https://ppt-app-backend.onrender.com`
-- **📡 API Health:** `https://ppt-app-backend.onrender.com/api/health`
+- **🌐 Single URL:** `https://ppt-app.onrender.com`
+- **🔧 Admin Panel:** `https://ppt-app.onrender.com/admin`
+- **📊 API Endpoints:** `https://ppt-app.onrender.com/api/*`
 
 ## 🔐 Admin Access
 - **Username:** `admin`
