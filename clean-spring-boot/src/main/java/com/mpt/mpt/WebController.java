@@ -21,6 +21,19 @@ public class WebController {
         return "WebController is working!";
     }
 
+    @GetMapping("/debug")
+    @ResponseBody
+    public String debug() {
+        try {
+            Resource resource = new ClassPathResource("static/index.html");
+            return "Resource exists: " + resource.exists() + 
+                   ", Path: " + resource.getURI() + 
+                   ", Size: " + (resource.exists() ? resource.contentLength() : "N/A");
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
     @GetMapping(value = {"/", "/{path:^(?!api).*}/**"})
     public ResponseEntity<String> serveReactApp(@PathVariable(required = false) String path) {
         try {
@@ -28,7 +41,7 @@ public class WebController {
             if (!resource.exists()) {
                 return ResponseEntity.ok()
                         .contentType(MediaType.TEXT_HTML)
-                        .body("<html><body><h1>React app not found</h1><p>Path: " + path + "</p><p>Resource exists: " + resource.exists() + "</p></body></html>");
+                        .body("<html><body><h1>React app not found</h1><p>Path: " + path + "</p><p>Resource exists: " + resource.exists() + "</p><p>Try: <a href='/debug'>Debug Info</a></p></body></html>");
             }
             String content = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
             return ResponseEntity.ok()
@@ -37,7 +50,7 @@ public class WebController {
         } catch (IOException e) {
             return ResponseEntity.ok()
                     .contentType(MediaType.TEXT_HTML)
-                    .body("<html><body><h1>Error loading React app</h1><p>Error: " + e.getMessage() + "</p></body></html>");
+                    .body("<html><body><h1>Error loading React app</h1><p>Error: " + e.getMessage() + "</p><p>Try: <a href='/debug'>Debug Info</a></p></body></html>");
         }
     }
 }

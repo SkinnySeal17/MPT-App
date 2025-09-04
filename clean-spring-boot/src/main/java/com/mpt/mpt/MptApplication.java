@@ -20,7 +20,7 @@ public class MptApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:8000", "http://localhost:3000", "http://localhost:3001", "https://ppt-app.onrender.com")
+                        .allowedOrigins("http://localhost:8000", "http://localhost:3000", "http://localhost:3001", "https://ppt-app-y42f.onrender.com")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
@@ -28,16 +28,7 @@ public class MptApplication {
 
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
-                registry.addResourceHandler("/static/**")
-                        .addResourceLocations("classpath:/static/static/");
-                registry.addResourceHandler("/favicon.ico")
-                        .addResourceLocations("classpath:/static/");
-                registry.addResourceHandler("/manifest.json")
-                        .addResourceLocations("classpath:/static/");
-                registry.addResourceHandler("/logo192.png")
-                        .addResourceLocations("classpath:/static/");
-                registry.addResourceHandler("/logo512.png")
-                        .addResourceLocations("classpath:/static/");
+                // Serve all static files from classpath:/static/
                 registry.addResourceHandler("/**")
                         .addResourceLocations("classpath:/static/");
             }
