@@ -1,6 +1,6 @@
 services:
   # Frontend Service (React)
-  - type: static
+  - type: web
     name: ppt-app-frontend
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/build
