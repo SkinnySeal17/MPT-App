@@ -1,7 +1,7 @@
 services:
   # Frontend Service (React)
   - type: web
-    name: mpt-frontend
+    name: ppt-app-frontend
     env: static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/build
@@ -13,7 +13,7 @@ services:
 
   # Backend Service (Spring Boot)
   - type: web
-    name: mpt-backend
+    name: ppt-app-backend
     env: java
     buildCommand: cd clean-spring-boot && ./mvnw clean package -DskipTests
     startCommand: cd clean-spring-boot && java -jar target/mpt-0.0.1-SNAPSHOT.jar
@@ -27,13 +27,13 @@ services:
       - key: DB_PASSWORD
         value: ${MYSQL_PASSWORD}
       - key: ALLOWED_ORIGINS
-        value: https://mpt-frontend.onrender.com
+        value: https://ppt-app-frontend.onrender.com
     autoDeploy: true
     plan: starter
 
   # Database Service (MySQL)
   - type: pserv
-    name: mpt-mysql
+    name: ppt-app-mysql
     env: mysql
     plan: starter
     autoDeploy: true

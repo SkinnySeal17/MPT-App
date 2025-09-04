@@ -11,29 +11,25 @@ This guide will help you deploy your MPT website to a live server that works exa
 
 ## 🚀 Quick Deployment Steps
 
-### Step 1: Prepare GitHub Repository
-```bash
-# If you don't have a GitHub repo yet:
-1. Go to https://github.com
-2. Create a new repository named "mpt"
-3. Copy the repository URL
-```
+### Step 1: Your GitHub Repository
+✅ **Repository:** [https://github.com/sujal715/ppt-app](https://github.com/sujal715/ppt-app)
 
-### Step 2: Connect to GitHub
+Your repository is already set up and ready for deployment!
+
+### Step 2: Verify Connection
 ```bash
-# In your project directory:
-git init
-git add .
-git commit -m "Initial commit - MPT website"
-git remote add origin https://github.com/YOUR_USERNAME/mpt.git
-git push -u origin main
+# Your repository is already connected:
+git remote -v
+# Should show:
+# origin  https://github.com/sujal715/mpt.git
+# ppt-app https://github.com/sujal715/ppt-app.git
 ```
 
 ### Step 3: Deploy to Render
 1. **Go to:** https://render.com
 2. **Sign up/Login** with your GitHub account
 3. **Click "New +"** → **"Blueprint"**
-4. **Connect your GitHub repository**
+4. **Connect your GitHub repository:** `https://github.com/sujal715/ppt-app`
 5. **Render will automatically detect the `render.yaml` file**
 6. **Click "Apply"** to start deployment
 
@@ -57,34 +53,34 @@ If you prefer manual deployment:
 ### Frontend Deployment:
 1. Go to Render Dashboard
 2. Click "New +" → "Static Site"
-3. Connect your GitHub repo
+3. Connect your GitHub repo: `https://github.com/sujal715/ppt-app`
 4. Set:
-   - **Name:** `mpt-frontend`
+   - **Name:** `ppt-app-frontend`
    - **Build Command:** `cd frontend && npm install && npm run build`
    - **Publish Directory:** `frontend/build`
 
 ### Backend Deployment:
 1. Click "New +" → "Web Service"
-2. Connect your GitHub repo
+2. Connect your GitHub repo: `https://github.com/sujal715/ppt-app`
 3. Set:
-   - **Name:** `mpt-backend`
+   - **Name:** `ppt-app-backend`
    - **Build Command:** `cd clean-spring-boot && ./mvnw clean package -DskipTests`
    - **Start Command:** `cd clean-spring-boot && java -jar target/mpt-0.0.1-SNAPSHOT.jar`
 
 ### Database Setup:
 1. Click "New +" → "PostgreSQL" (or MySQL)
 2. Set:
-   - **Name:** `mpt-database`
-   - **Database:** `mpt_db`
+   - **Name:** `ppt-app-database`
+   - **Database:** `ppt_app_db`
 
 ## 🌐 Your Live URLs
 
 After deployment, your website will be available at:
 
-- **🏠 Main Website:** `https://mpt-frontend.onrender.com`
-- **🔧 Admin Panel:** `https://mpt-frontend.onrender.com/admin`
-- **📊 Backend API:** `https://mpt-backend.onrender.com`
-- **📡 API Health:** `https://mpt-backend.onrender.com/api/health`
+- **🏠 Main Website:** `https://ppt-app-frontend.onrender.com`
+- **🔧 Admin Panel:** `https://ppt-app-frontend.onrender.com/admin`
+- **📊 Backend API:** `https://ppt-app-backend.onrender.com`
+- **📡 API Health:** `https://ppt-app-backend.onrender.com/api/health`
 
 ## 🔐 Admin Access
 - **Username:** `admin`
