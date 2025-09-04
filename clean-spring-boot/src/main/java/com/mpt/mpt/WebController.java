@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 @Controller
 public class WebController {
 
-    @GetMapping(value = {"/", "/{path:^(?!api|static).*}/**"})
+    @GetMapping(value = {"/", "/{path:^(?!api).*}/**"})
     public ResponseEntity<String> serveReactApp(@PathVariable(required = false) String path) {
         try {
             Resource resource = new ClassPathResource("static/index.html");
@@ -26,12 +26,5 @@ public class WebController {
         } catch (IOException e) {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @GetMapping("/static/**")
-    @ResponseBody
-    public ResponseEntity<Resource> serveStaticFiles() {
-        // This will be handled by Spring Boot's static resource handling
-        return ResponseEntity.notFound().build();
     }
 }

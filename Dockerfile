@@ -22,7 +22,7 @@ WORKDIR /app
 # Copy the built Spring Boot jar
 COPY --from=backend-build /app/backend/target/*SNAPSHOT.jar app.jar
 
-# Copy the React build files
+# Copy the React build files to the correct location for Spring Boot
 COPY --from=frontend-build /app/frontend/build static/
 
 # Expose port
