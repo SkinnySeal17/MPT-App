@@ -57,7 +57,7 @@
                             <outputDirectory>${project.build.directory}/classes/static</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>../../frontend/build</directory>
+                                    <directory>../frontend/build</directory>
                                     <filtering>false</filtering>
                                 </resource>
                             </resources>
