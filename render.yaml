@@ -2,7 +2,7 @@ services:
   # Unified Web Service (Spring Boot + React Frontend)
   - type: web
     name: ppt-app
-    env: java
+    runtime: java
     buildCommand: |
       cd frontend && npm install && npm run build
       cd ../clean-spring-boot && ./mvnw clean package -DskipTests
@@ -24,6 +24,7 @@ services:
   # Database Service (MySQL)
   - type: pserv
     name: ppt-app-mysql
-    env: mysql
+    runtime: mysql
+    startCommand: mysql --version
     plan: starter
     autoDeploy: true
