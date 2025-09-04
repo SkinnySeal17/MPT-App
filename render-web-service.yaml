@@ -1,0 +1,13 @@
+services:
+  # Single Web Service (Spring Boot + React Frontend)
+  - type: web
+    name: ppt-app
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    autoDeployTrigger: commit
+    plan: starter
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: ALLOWED_ORIGINS
+        value: https://ppt-app.onrender.com

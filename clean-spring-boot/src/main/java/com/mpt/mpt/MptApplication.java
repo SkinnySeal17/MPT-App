@@ -38,6 +38,8 @@ public class MptApplication {
                         .addResourceLocations("classpath:/static/");
                 registry.addResourceHandler("/logo512.png")
                         .addResourceLocations("classpath:/static/");
+                registry.addResourceHandler("/**")
+                        .addResourceLocations("classpath:/static/");
             }
         };
     }
