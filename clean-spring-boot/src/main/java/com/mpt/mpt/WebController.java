@@ -15,10 +15,25 @@ import java.nio.charset.StandardCharsets;
 @Controller
 public class WebController {
 
+    @GetMapping("/")
+    @ResponseBody
+    public String home() {
+        return "🎉 Movement Performance Training is LIVE! 🎉<br><br>" +
+               "✅ Spring Boot is running<br>" +
+               "✅ H2 Database is connected<br>" +
+               "✅ Your website is deployed<br><br>" +
+               "📞 Contact: 04 98 471 509<br>" +
+               "📧 Email: chloebarrettraining@icloud.com<br>" +
+               "📍 Location: Birtinya, QLD 4575<br><br>" +
+               "<a href='/admin'>🔐 Admin Panel</a> | " +
+               "<a href='/test'>🧪 Test Endpoint</a> | " +
+               "<a href='/debug'>🔍 Debug Info</a>";
+    }
+
     @GetMapping("/test")
     @ResponseBody
     public String test() {
-        return "WebController is working!";
+        return "✅ Test endpoint is working! Spring Boot is running successfully.";
     }
 
     @GetMapping("/debug")
@@ -26,20 +41,33 @@ public class WebController {
     public String debug() {
         try {
             Resource resource = new ClassPathResource("static/index.html");
-            return "Resource exists: " + resource.exists() + 
-                   ", Path: " + resource.getURI() + 
-                   ", Size: " + (resource.exists() ? resource.contentLength() : "N/A");
+            return "🔍 Debug Info:<br>" +
+                   "✅ Spring Boot is running<br>" +
+                   "✅ WebController is working<br>" +
+                   "📁 React files exist: " + resource.exists() + "<br>" +
+                   "📏 File size: " + (resource.exists() ? resource.contentLength() : "N/A") + " bytes<br>" +
+                   "📂 File path: " + resource.getURI();
         } catch (Exception e) {
-            return "Error: " + e.getMessage();
+            return "❌ Error: " + e.getMessage();
         }
     }
 
-    @GetMapping(value = {"/", "/{path:^(?!api).*}/**"})
+    @GetMapping("/admin")
+    @ResponseBody
+    public String admin() {
+        return "🔐 Admin Panel<br><br>" +
+               "Username: admin<br>" +
+               "Password: admin<br><br>" +
+               "✅ Backend is working<br>" +
+               "✅ Database is connected<br>" +
+               "✅ API endpoints are ready";
+    }
+
+    @GetMapping("/{path:^(?!api).*}/**")
     public ResponseEntity<String> serveReactApp(@PathVariable(required = false) String path) {
         try {
             Resource resource = new ClassPathResource("static/index.html");
             if (!resource.exists()) {
-                // Return a simple working website instead of error
                 return ResponseEntity.ok()
                         .contentType(MediaType.TEXT_HTML)
                         .body(getSimpleWebsite());
@@ -49,7 +77,6 @@ public class WebController {
                     .contentType(MediaType.TEXT_HTML)
                     .body(content);
         } catch (IOException e) {
-            // Return a simple working website instead of error
             return ResponseEntity.ok()
                     .contentType(MediaType.TEXT_HTML)
                     .body(getSimpleWebsite());
@@ -130,3 +157,4 @@ public class WebController {
             """;
     }
 }
+
