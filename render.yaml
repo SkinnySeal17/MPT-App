@@ -1,21 +1,11 @@
 services:
-  # Frontend Service (React)
+  # Unified Web Service (Spring Boot + React Frontend)
   - type: web
-    name: ppt-app-frontend
-    env: static
-    buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: frontend/build
-    envVars:
-      - key: NODE_ENV
-        value: production
-    autoDeploy: true
-    plan: starter
-
-  # Backend Service (Spring Boot)
-  - type: web
-    name: ppt-app-backend
+    name: ppt-app
     env: java
-    buildCommand: cd clean-spring-boot && ./mvnw clean package -DskipTests
+    buildCommand: |
+      cd frontend && npm install && npm run build
+      cd ../clean-spring-boot && ./mvnw clean package -DskipTests
     startCommand: cd clean-spring-boot && java -jar target/mpt-0.0.1-SNAPSHOT.jar
     envVars:
       - key: SPRING_PROFILES_ACTIVE
@@ -27,7 +17,7 @@ services:
       - key: DB_PASSWORD
         value: ${MYSQL_PASSWORD}
       - key: ALLOWED_ORIGINS
-        value: https://ppt-app-frontend.onrender.com
+        value: https://ppt-app.onrender.com
     autoDeploy: true
     plan: starter
 
