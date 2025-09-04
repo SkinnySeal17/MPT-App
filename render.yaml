@@ -1,12 +1,39 @@
 services:
-  # Static Site Service
+  # Frontend Service (React)
   - type: web
-    name: ppt-app
-    rootDir: frontend
-    buildCommand: npm run build
-    startCommand: npx serve -s build -l $PORT
+    name: mpt-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/build
     envVars:
       - key: NODE_ENV
         value: production
     autoDeploy: true
     plan: starter
+
+  # Backend Service (Spring Boot)
+  - type: web
+    name: mpt-backend
+    env: java
+    buildCommand: cd clean-spring-boot && ./mvnw clean package -DskipTests
+    startCommand: cd clean-spring-boot && java -jar target/mpt-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        value: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+      - key: DB_USERNAME
+        value: ${MYSQL_USER}
+      - key: DB_PASSWORD
+        value: ${MYSQL_PASSWORD}
+      - key: ALLOWED_ORIGINS
+        value: https://mpt-frontend.onrender.com
+    autoDeploy: true
+    plan: starter
+
+  # Database Service (MySQL)
+  - type: pserv
+    name: mpt-mysql
+    env: mysql
+    plan: starter
+    autoDeploy: true

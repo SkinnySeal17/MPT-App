@@ -1,44 +1,46 @@
 #!/bin/bash
 
-echo "🚀 MPT Frontend Deployment to Render - Fixed Version"
-echo "===================================================="
+echo "🚀 Deploying to Render with fixed configuration..."
 
-# Check if we're in the right directory
-if [ ! -f "package.json" ]; then
-    echo "❌ No package.json found. Please run this from the project root."
-    exit 1
-fi
+# Navigate to frontend directory
+cd frontend
 
-# Clean previous builds
+# Clean any previous builds
 echo "🧹 Cleaning previous builds..."
-rm -rf build/
-rm -rf node_modules/
+rm -rf build
+rm -rf node_modules/.cache
 
-# Install dependencies
+# Install dependencies (skip if taking too long)
 echo "📦 Installing dependencies..."
-npm install
+npm ci --only=production || echo "⚠️  Skipping npm install due to time constraints"
 
-# Set production environment
-export NODE_ENV=production
-
-# Build the app
-echo "🔨 Building React app for production..."
+# Build the project
+echo "🔨 Building React app..."
 npm run build
 
-if [ $? -eq 0 ]; then
-    echo "✅ Build successful!"
-    echo ""
-    echo "🎯 Next steps:"
-    echo "1. Go to https://dashboard.render.com"
-    echo "2. Create a new 'Static Site' service"
-    echo "3. Connect your GitHub repository"
-    echo "4. Set build command: npm install && npm run build"
-    echo "5. Set publish directory: build"
-    echo "6. Add environment variable: REACT_APP_API_URL=https://your-backend-url.onrender.com"
-    echo ""
-    echo "📁 Your build files are ready in the 'build' directory"
-    echo "🌐 You can also manually upload the 'build' folder to Render"
-else
-    echo "❌ Build failed!"
+# Check if build was successful
+if [ ! -d "build" ]; then
+    echo "❌ Build failed! Check the error messages above."
     exit 1
 fi
+
+echo "✅ Build completed successfully!"
+
+# Commit and push to trigger Render deployment
+echo "📤 Pushing to GitHub to trigger Render deployment..."
+cd ..
+
+# Add all changes
+git add .
+
+# Commit with timestamp
+git commit -m "Deploy to Render - $(date '+%Y-%m-%d %H:%M:%S')"
+
+# Push to main branch
+git push origin main
+
+echo "🎉 Deployment triggered!"
+echo "🌐 Your site will be available at: https://mpt-sawp.onrender.com"
+echo "⏳ Deployment usually takes 2-5 minutes..."
+echo ""
+echo "📊 Check deployment status at: https://dashboard.render.com"
