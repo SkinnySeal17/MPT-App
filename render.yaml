@@ -1,15 +1,24 @@
 services:
-  # Unified Web Service (Spring Boot + React Frontend)
+  # Frontend Service (React)
+  - type: static
+    name: ppt-app-frontend
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://ppt-app-backend.onrender.com
+    autoDeploy: true
+    plan: starter
+
+  # Backend Service (Spring Boot)
   - type: web
-    name: ppt-app
-    buildCommand: |
-      cd frontend && npm install && npm run build
-      cd ../clean-spring-boot && ./mvnw clean package -DskipTests
+    name: ppt-app-backend
+    buildCommand: cd clean-spring-boot && ./mvnw clean package -DskipTests
     startCommand: cd clean-spring-boot && java -jar target/mpt-0.0.1-SNAPSHOT.jar
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
       - key: ALLOWED_ORIGINS
-        value: https://ppt-app.onrender.com
+        value: https://ppt-app-frontend.onrender.com
     autoDeploy: true
     plan: starter
