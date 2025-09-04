@@ -9,19 +9,7 @@ services:
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
-      - key: DATABASE_URL
-        value: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
-      - key: DB_USERNAME
-        value: ${MYSQL_USER}
-      - key: DB_PASSWORD
-        value: ${MYSQL_PASSWORD}
       - key: ALLOWED_ORIGINS
         value: https://ppt-app.onrender.com
     autoDeploy: true
     plan: starter
-
-  # Database Service (MySQL)
-  - type: pserv
-    name: ppt-app-mysql
-    plan: starter
-    autoDeploy: true
