@@ -16,18 +16,23 @@ import java.nio.charset.StandardCharsets;
 public class WebController {
 
     @GetMapping("/")
-    @ResponseBody
-    public String home() {
-        return "🎉 Movement Performance Training is LIVE! 🎉<br><br>" +
-               "✅ Spring Boot is running<br>" +
-               "✅ H2 Database is connected<br>" +
-               "✅ Your website is deployed<br><br>" +
-               "📞 Contact: 04 98 471 509<br>" +
-               "📧 Email: chloebarrettraining@icloud.com<br>" +
-               "📍 Location: Birtinya, QLD 4575<br><br>" +
-               "<a href='/admin'>🔐 Admin Panel</a> | " +
-               "<a href='/test'>🧪 Test Endpoint</a> | " +
-               "<a href='/debug'>🔍 Debug Info</a>";
+    public ResponseEntity<String> home() {
+        try {
+            Resource resource = new ClassPathResource("static/index.html");
+            if (!resource.exists()) {
+                return ResponseEntity.ok()
+                        .contentType(MediaType.TEXT_HTML)
+                        .body(getSimpleWebsite());
+            }
+            String content = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.TEXT_HTML)
+                    .body(content);
+        } catch (IOException e) {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.TEXT_HTML)
+                    .body(getSimpleWebsite());
+        }
     }
 
     @GetMapping("/test")
@@ -53,14 +58,34 @@ public class WebController {
     }
 
     @GetMapping("/admin")
-    @ResponseBody
-    public String admin() {
-        return "🔐 Admin Panel<br><br>" +
-               "Username: admin<br>" +
-               "Password: admin<br><br>" +
-               "✅ Backend is working<br>" +
-               "✅ Database is connected<br>" +
-               "✅ API endpoints are ready";
+    public ResponseEntity<String> admin() {
+        try {
+            Resource resource = new ClassPathResource("static/advanced-admin.html");
+            if (!resource.exists()) {
+                // Fallback to simple admin status
+                return ResponseEntity.ok()
+                        .contentType(MediaType.TEXT_HTML)
+                        .body("🔐 Admin Panel<br><br>" +
+                              "Username: admin<br>" +
+                              "Password: admin<br><br>" +
+                              "✅ Backend is working<br>" +
+                              "✅ Database is connected<br>" +
+                              "✅ API endpoints are ready");
+            }
+            String content = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.TEXT_HTML)
+                    .body(content);
+        } catch (IOException e) {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.TEXT_HTML)
+                    .body("🔐 Admin Panel<br><br>" +
+                          "Username: admin<br>" +
+                          "Password: admin<br><br>" +
+                          "✅ Backend is working<br>" +
+                          "✅ Database is connected<br>" +
+                          "✅ API endpoints are ready");
+        }
     }
 
     @GetMapping("/{path:^(?!api).*}/**")
