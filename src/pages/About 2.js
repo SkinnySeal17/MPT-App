@@ -19,9 +19,9 @@ function About() {
           <div className="story-content">
             <div className="story-text">
               <h2>Our Story</h2>
-              <p>With 14 years of experience in sports and fitness, Chloe paused her personal training journey in 2021 to educate the next generation of trainers on the Sunshine Coast while pursuing a Bachelor of Clinical Exercise Physiology.</p>
-              <p>An extreme sports enthusiast, Chloe's passion extends beyond the gym. When not coaching, you'll find her mastering waves through kitesurfing, wing foiling, or preparing for triathlons when conditions allow.</p>
-              <p>Before personal training, Chloe was a scuba diving and kitesurfing instructor. Today, she channels this diverse experience into helping clients achieve their fitness goals, with a mission to create a healthier, happier world.</p>
+              <p>Founded in 2000, Movement Performance Training has been at the forefront of water sports education in Australia. What started as a small kitesurfing school has grown into a comprehensive training facility offering instruction in kitesurfing, hydrofoiling, and wing foiling.</p>
+              <p>Our mission is to provide safe, professional, and enjoyable water sports training to people of all skill levels. We believe that everyone deserves the opportunity to experience the thrill and freedom of water sports.</p>
+              <p>With over 20 years of experience, we've helped thousands of students master the art of water sports and discover their passion for adventure on the water.</p>
             </div>
             <div className="story-image">
               <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Our Story" />
@@ -62,22 +62,31 @@ function About() {
       {/* Team */}
       <section className="team-section">
         <div className="container">
-          <h2>Meet Our Founder</h2>
+          <h2>Our Team</h2>
           <div className="team-grid">
-            <div className="team-member featured">
+            <div className="team-member">
               <div className="member-image">
-                <img src="/chloe-headshot.jpg" alt="Chloe Barrett - Founder & Head Instructor" />
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop" alt="Chloe - Head Instructor" />
               </div>
-              <div className="member-info">
-                <h3>Chloe Barrett</h3>
-                <p className="member-title">Founder & Head Instructor</p>
-                <p className="member-description">With 14 years of experience in sports and fitness, Chloe leads Movement Performance Training with passion and expertise. An extreme sports enthusiast, she specializes in kitesurfing, wing foiling, and movement performance training.</p>
-                <div className="member-credentials">
-                  <span className="credential">Bachelor of Clinical Exercise Physiology</span>
-                  <span className="credential">Certified Personal Trainer</span>
-                  <span className="credential">Scuba Diving & Kitesurfing Instructor</span>
-                </div>
+              <h3>Chloe</h3>
+              <p className="member-title">Head Instructor</p>
+              <p>With 14 years of experience in water sports, Chloe leads our training programs with passion and expertise. She specializes in kitesurfing and hydrofoiling instruction.</p>
+            </div>
+            <div className="team-member">
+              <div className="member-image">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" alt="Mike - Senior Instructor" />
               </div>
+              <h3>Mike</h3>
+              <p className="member-title">Senior Instructor</p>
+              <p>Mike brings 10 years of experience in wing foiling and advanced kitesurfing techniques. He's passionate about helping students master advanced maneuvers.</p>
+            </div>
+            <div className="team-member">
+              <div className="member-image">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop" alt="Sarah - Safety Coordinator" />
+              </div>
+              <h3>Sarah</h3>
+              <p className="member-title">Safety Coordinator</p>
+              <p>Sarah ensures all our programs meet the highest safety standards. She's certified in water rescue and emergency response.</p>
             </div>
           </div>
         </div>
@@ -112,7 +121,41 @@ function About() {
         </div>
       </section>
 
+      {/* Location */}
+      <section className="location-section">
+        <div className="container">
+          <h2>Our Location</h2>
+          <div className="location-content">
+            <div className="location-info">
+              <h3>Ezyfit Health Club, Birtinya</h3>
+              <p>Located in the beautiful Sunshine Coast region, our facility offers perfect conditions for water sports training year-round.</p>
+              <ul>
+                <li>Prime location for water sports</li>
+                <li>Excellent wind and wave conditions</li>
+                <li>Modern training facilities</li>
+                <li>Easy access and parking</li>
+              </ul>
+            </div>
+            <InteractiveMap 
+              location={{
+                name: 'Ezyfit Health Club',
+                address: 'Birtinya, QLD 4575',
+                city: 'Sunshine Coast, Queensland, Australia',
+                coordinates: { lat: -26.7500, lng: 153.1167 }
+              }}
+            />
+          </div>
+        </div>
+      </section>
 
+      {/* Contact CTA */}
+      <section className="about-cta">
+        <div className="container">
+          <h2>Ready to Start Your Journey?</h2>
+          <p>Join our community and discover the thrill of water sports with our expert team.</p>
+          <button className="cta-btn">Contact Us Today</button>
+        </div>
+      </section>
     </div>
   );
 }

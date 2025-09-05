@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPT Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+        }
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 10px;
+        }
+        .status {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #10b981;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 MPT Website Test</h1>
+    
+    <div class="test-section">
+        <h2>✅ Server Status</h2>
+        <p><span class="status"></span>Local server is running successfully!</p>
+        <p>Your website is now accessible at: <strong>http://localhost:8000</strong></p>
+    </div>
+
+    <div class="test-section">
+        <h2>🖼️ Images Test</h2>
+        <p>Testing if images are loading correctly:</p>
+        <img src="/mpt-logo.jpeg" alt="MPT Logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <span style="display:none; color: red;">❌ Logo not loading</span>
+        <br>
+        <img src="/chloe-headshot.jpg" alt="Chloe Headshot" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <span style="display:none; color: red;">❌ Chloe photo not loading</span>
+    </div>
+
+    <div class="test-section">
+        <h2>🌐 Next Steps</h2>
+        <p>Visit <a href="http://localhost:8000" style="color: #0891b2;">http://localhost:8000</a> to see your dynamic website!</p>
+        <p><strong>If you see a white screen:</strong></p>
+        <ul>
+            <li>Try refreshing the page (Cmd+R or Ctrl+R)</li>
+            <li>Try hard refresh (Cmd+Shift+R or Ctrl+Shift+R)</li>
+            <li>Open in incognito/private mode</li>
+            <li>Clear browser cache</li>
+        </ul>
+    </div>
+
+    <script>
+        console.log('Test page loaded successfully!');
+        console.log('Server is working correctly.');
+    </script>
+</body>
+</html>

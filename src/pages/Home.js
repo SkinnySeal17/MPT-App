@@ -65,6 +65,18 @@ function Home() {
   const featuresRef = useRef(null);
   const testimonialsRef = useRef(null);
 
+  // Mouse tracking for dynamic effects
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   // Professional Data Structures with Luxury Enhancements
   const professionalTestimonials = useMemo(() => [
     {
@@ -246,6 +258,8 @@ function Home() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [isHovering, particleCount]);
+
+
 
   // Premium Render Methods with Luxury Enhancements
   const renderHeroSection = () => (

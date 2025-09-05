@@ -1,6 +1,6 @@
-// API Configuration for Render deployment
-// Updated with CORS fix - force redeployment
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://mpt-sawp.onrender.com';
+// API Configuration for Java Spring Boot Backend
+// Updated to use local Java backend
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081';
 
 // API Service Class
 class ApiService {

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPT Admin Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+        }
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+        button {
+            background: #0891b2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0ea5e9; }
+    </style>
+</head>
+<body>
+    <h1>🎉 MPT Admin Test Page</h1>
+    
+    <div class="test-section">
+        <h2>✅ Server Status</h2>
+        <p class="success">✅ Server is running on http://localhost:8000</p>
+        <p class="success">✅ This page loaded successfully!</p>
+        <p class="success">✅ Admin files are accessible</p>
+    </div>
+
+    <div class="test-section">
+        <h2>🔗 Admin Links</h2>
+        <p><a href="/admin-dashboard.html" style="color: #0891b2;">📊 Admin Dashboard</a></p>
+        <p><a href="/admin.html" style="color: #0891b2;">🔧 Admin Panel</a></p>
+        <p><a href="/admin-test.html" style="color: #0891b2;">🧪 Admin Test</a></p>
+    </div>
+
+    <div class="test-section">
+        <h2>🎯 Quick Test</h2>
+        <button onclick="testBackend()">Test Backend Connection</button>
+        <button onclick="testAdminFiles()">Test Admin Files</button>
+        <div id="test-results"></div>
+    </div>
+
+    <script>
+        async function testBackend() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '<p>Testing backend connection...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:8081/api/bookings');
+                if (response.ok) {
+                    results.innerHTML = '<p class="success">✅ Backend is working!</p>';
+                } else {
+                    results.innerHTML = '<p class="error">❌ Backend error: ' + response.status + '</p>';
+                }
+            } catch (error) {
+                results.innerHTML = '<p class="error">❌ Backend connection failed: ' + error.message + '</p>';
+            }
+        }
+
+        async function testAdminFiles() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '<p>Testing admin files...</p>';
+            
+            const files = ['/admin-dashboard.html', '/admin.html', '/admin-test.html'];
+            let allWorking = true;
+            
+            for (const file of files) {
+                try {
+                    const response = await fetch(file);
+                    if (!response.ok) {
+                        allWorking = false;
+                    }
+                } catch (error) {
+                    allWorking = false;
+                }
+            }
+            
+            if (allWorking) {
+                results.innerHTML = '<p class="success">✅ All admin files are accessible!</p>';
+            } else {
+                results.innerHTML = '<p class="error">❌ Some admin files are not accessible</p>';
+            }
+        }
+    </script>
+</body>
+</html>

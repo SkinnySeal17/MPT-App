@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPT Admin Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+        }
+        .admin-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .status {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .status.success { background: #10b981; }
+        .status.error { background: #ef4444; }
+        .status.loading { background: #fbbf24; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        button {
+            background: #0891b2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0ea5e9; }
+        .booking-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #0891b2;
+        }
+        .booking-item h3 { margin: 0 0 10px 0; color: #0891b2; }
+        .booking-item p { margin: 5px 0; }
+        #results { margin-top: 20px; }
+        .nav-links {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        .nav-links a {
+            color: #0891b2;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 MPT Admin Dashboard</h1>
+    
+    <div class="nav-links">
+        <a href="http://localhost:8000">🏠 Home</a>
+        <a href="http://localhost:8000/about">👤 About</a>
+        <a href="http://localhost:8000/contact">📞 Contact</a>
+        <a href="http://localhost:8000/services">⚡ Services</a>
+        <a href="http://localhost:8000/resources">📚 Resources</a>
+    </div>
+
+    <div class="admin-section">
+        <h2>✅ System Status</h2>
+        <p><span class="status success"></span>Frontend: http://localhost:8000</p>
+        <p><span class="status success"></span>Backend: http://localhost:8081</p>
+        <p><span class="status success"></span>Database: MySQL (mpt_db)</p>
+    </div>
+
+    <div class="admin-section">
+        <h2>📊 Bookings Management</h2>
+        <button onclick="loadBookings()">Load All Bookings</button>
+        <button onclick="createTestBooking()">Create Test Booking</button>
+        <button onclick="clearBookings()">Clear All Bookings</button>
+        <div id="bookings-list"></div>
+    </div>
+
+    <div class="admin-section">
+        <h2>🔗 Quick Links</h2>
+        <p><a href="http://localhost:8081/api/bookings" target="_blank" style="color: #0891b2;">📡 API Endpoint Test</a></p>
+        <p><a href="http://localhost:8081/api/bookings" target="_blank" style="color: #0891b2;">📡 API Endpoint Test</a></p>
+        <p><a href="http://localhost:8000/test-api.html" style="color: #0891b2;">🧪 API Connection Test</a></p>
+    </div>
+
+    <div class="admin-section">
+        <h2>📈 System Info</h2>
+        <p><strong>Frontend:</strong> React.js with React Router</p>
+        <p><strong>Backend:</strong> Java Spring Boot</p>
+        <p><strong>Database:</strong> MySQL (mpt_db)</p>
+        <p><strong>API:</strong> RESTful with CORS enabled</p>
+        <p><strong>Deployment:</strong> Local Development</p>
+    </div>
+
+    <script>
+        function addResult(message, isSuccess = true) {
+            const results = document.getElementById('results');
+            if (results) {
+                const div = document.createElement('div');
+                div.innerHTML = `<span class="status ${isSuccess ? 'success' : 'error'}"></span>${message}`;
+                div.style.margin = '10px 0';
+                results.appendChild(div);
+            }
+        }
+
+        async function loadBookings() {
+            const bookingsList = document.getElementById('bookings-list');
+            bookingsList.innerHTML = '<p>Loading bookings...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:8081/api/bookings');
+                if (response.ok) {
+                    const bookings = await response.json();
+                    if (bookings.length === 0) {
+                        bookingsList.innerHTML = '<p>No bookings found.</p>';
+                    } else {
+                        let html = '<h3>Current Bookings:</h3>';
+                        bookings.forEach(booking => {
+                            html += `
+                                <div class="booking-item">
+                                    <h3>${booking.name}</h3>
+                                    <p><strong>Email:</strong> ${booking.email}</p>
+                                    <p><strong>Phone:</strong> ${booking.phone}</p>
+                                    <p><strong>Service:</strong> ${booking.service}</p>
+                                    <p><strong>Status:</strong> ${booking.status || 'Pending'}</p>
+                                    <p><strong>Created:</strong> ${new Date(booking.createdAt).toLocaleString()}</p>
+                                </div>
+                            `;
+                        });
+                        bookingsList.innerHTML = html;
+                    }
+                } else {
+                    bookingsList.innerHTML = `<p>Error loading bookings: ${response.status}</p>`;
+                }
+            } catch (error) {
+                bookingsList.innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+
+        async function createTestBooking() {
+            try {
+                const bookingData = {
+                    name: "Test Admin User",
+                    email: "admin@test.com",
+                    phone: "1234567890",
+                    service: "Personal Training",
+                    message: "Test booking from admin panel"
+                };
+
+                const response = await fetch('http://localhost:8081/api/bookings/create', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bookingData)
+                });
+
+                if (response.ok) {
+                    alert('Test booking created successfully!');
+                    loadBookings();
+                } else {
+                    alert(`Failed to create booking: ${response.status}`);
+                }
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+            }
+        }
+
+        async function clearBookings() {
+            if (confirm('Are you sure you want to clear all bookings?')) {
+                try {
+                    const response = await fetch('http://localhost:8081/api/bookings', {
+                        method: 'DELETE'
+                    });
+                    
+                    if (response.ok) {
+                        alert('All bookings cleared!');
+                        loadBookings();
+                    } else {
+                        alert(`Failed to clear bookings: ${response.status}`);
+                    }
+                } catch (error) {
+                    alert(`Error: ${error.message}`);
+                }
+            }
+        }
+
+        // Auto-load bookings on page load
+        window.onload = function() {
+            setTimeout(loadBookings, 1000);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>MPT Admin</title>
+    <script>
+        // Redirect to our admin dashboard
+        window.location.href = '/admin.html';
+    </script>
+</head>
+<body>
+    <p>Redirecting to admin dashboard...</p>
+</body>
+</html>

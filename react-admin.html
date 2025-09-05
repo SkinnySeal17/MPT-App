@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPT React Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            text-align: center;
+        }
+        .info-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .button {
+            background: #0891b2;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button:hover {
+            background: #0ea5e9;
+        }
+        .warning {
+            background: rgba(251, 191, 36, 0.2);
+            border: 1px solid #fbbf24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 MPT React Admin Panel</h1>
+    
+    <div class="info-box">
+        <h2>Your Original React Admin Panel</h2>
+        <p>You had a React-based admin panel with more features including:</p>
+        <ul style="text-align: left; max-width: 400px; margin: 0 auto;">
+            <li>📊 Gallery Management</li>
+            <li>⚡ Services Management</li>
+            <li>💬 Testimonials Management</li>
+            <li>📦 Packages Management</li>
+            <li>🔐 Advanced Authentication</li>
+            <li>📈 Dashboard Analytics</li>
+        </ul>
+    </div>
+
+    <div class="warning">
+        <h3>⚠️ React Build Issue</h3>
+        <p>The React build is currently having dependency issues, so the original React admin panel isn't accessible.</p>
+        <p>We're using a simplified admin panel for now.</p>
+    </div>
+
+    <div class="info-box">
+        <h3>Current Admin Options:</h3>
+        <a href="/admin-dashboard.html" class="button">📊 Current Admin Dashboard</a>
+        <a href="/admin.html" class="button">🔧 Admin Panel</a>
+        <a href="/test-admin.html" class="button">🧪 Test Page</a>
+    </div>
+
+    <div class="info-box">
+        <h3>To Fix React Admin:</h3>
+        <p>We need to resolve the dependency issues in your React build.</p>
+        <p>The issue is with the 'tapable' module missing.</p>
+    </div>
+
+    <script>
+        // Try to access the React admin route
+        function tryReactAdmin() {
+            window.location.href = '/admin';
+        }
+    </script>
+</body>
+</html>
