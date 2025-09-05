@@ -46,12 +46,28 @@ public class WebController {
     public String debug() {
         try {
             Resource resource = new ClassPathResource("static/index.html");
-            return "🔍 Debug Info:<br>" +
-                   "✅ Spring Boot is running<br>" +
-                   "✅ WebController is working<br>" +
-                   "📁 React files exist: " + resource.exists() + "<br>" +
-                   "📏 File size: " + (resource.exists() ? resource.contentLength() : "N/A") + " bytes<br>" +
-                   "📂 File path: " + resource.getURI();
+            Resource adminResource = new ClassPathResource("static/advanced-admin.html");
+            
+            StringBuilder debug = new StringBuilder();
+            debug.append("🔍 Debug Info:<br>");
+            debug.append("✅ Spring Boot is running<br>");
+            debug.append("✅ WebController is working<br>");
+            debug.append("📁 React index.html exists: ").append(resource.exists()).append("<br>");
+            debug.append("📁 Admin panel exists: ").append(adminResource.exists()).append("<br>");
+            
+            if (resource.exists()) {
+                debug.append("📏 index.html size: ").append(resource.contentLength()).append(" bytes<br>");
+            }
+            
+            // List static directory contents
+            try {
+                Resource staticDir = new ClassPathResource("static/");
+                debug.append("📂 Static directory accessible: ").append(staticDir.exists()).append("<br>");
+            } catch (Exception e) {
+                debug.append("📂 Static directory error: ").append(e.getMessage()).append("<br>");
+            }
+            
+            return debug.toString();
         } catch (Exception e) {
             return "❌ Error: " + e.getMessage();
         }

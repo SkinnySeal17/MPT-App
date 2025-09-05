@@ -16,6 +16,9 @@ COPY frontend/ ./
 # Build React app
 RUN npm run build
 
+# Verify build
+RUN ls -la /app/frontend/build/
+
 # Spring Boot stage
 FROM maven:3.9-eclipse-temurin-21 AS backend-build
 
@@ -33,6 +36,9 @@ COPY clean-spring-boot/src ./src
 
 # Copy React build from frontend stage
 COPY --from=frontend-build /app/frontend/build ./src/main/resources/static
+
+# Verify React files are copied
+RUN ls -la ./src/main/resources/static/
 
 # Build Spring Boot app
 RUN mvn clean package -DskipTests
