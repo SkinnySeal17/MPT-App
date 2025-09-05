@@ -1,17 +1,29 @@
-# Simple approach - use existing React build
+# Multi-stage build: Node.js for React, Java for Spring Boot
+FROM node:18-alpine AS frontend-build
+
+WORKDIR /app/frontend
+
+# Copy package files and install dependencies
+COPY frontend/package*.json ./
+RUN npm install
+
+# Copy source and build
+COPY frontend/ ./
+RUN npm run build
+
+# Spring Boot stage
 FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
-# Copy everything
-COPY . .
+# Copy Spring Boot source
+COPY clean-spring-boot/ ./
 
-# Copy existing React build to Spring Boot static resources
-RUN cp -r frontend/build/* clean-spring-boot/src/main/resources/static/
+# Copy React build from frontend stage
+COPY --from=frontend-build /app/frontend/build ./src/main/resources/static/
 
 # Build Spring Boot
-RUN cd clean-spring-boot && ./mvnw clean package -DskipTests
+RUN ./mvnw clean package -DskipTests
 
 # Start the application
-WORKDIR /app/clean-spring-boot
 CMD ["java", "-jar", "target/mpt-0.0.1-SNAPSHOT.jar"]
