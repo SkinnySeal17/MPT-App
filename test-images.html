@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .image-test { margin: 20px 0; }
+        img { max-width: 300px; border: 2px solid #ccc; margin: 10px; }
+        .status { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Image Loading Test</h1>
+    
+    <div class="image-test">
+        <h3>Chloe's Photo Test:</h3>
+        <img src="/chloe-headshot.jpg" alt="Chloe's Photo" onload="document.getElementById('chloe-status').innerHTML='✅ Chloe photo loaded successfully'" onerror="document.getElementById('chloe-status').innerHTML='❌ Chloe photo failed to load'">
+        <p id="chloe-status">Loading...</p>
+    </div>
+    
+    <div class="image-test">
+        <h3>MPT Logo Test:</h3>
+        <img src="/mpt-logo.jpeg" alt="MPT Logo" onload="document.getElementById('logo-status').innerHTML='✅ Logo loaded successfully'" onerror="document.getElementById('logo-status').innerHTML='❌ Logo failed to load'">
+        <p id="logo-status">Loading...</p>
+    </div>
+    
+    <div class="image-test">
+        <h3>Direct Links:</h3>
+        <p><a href="/chloe-headshot.jpg" target="_blank">Direct link to Chloe's photo</a></p>
+        <p><a href="/mpt-logo.jpeg" target="_blank">Direct link to MPT logo</a></p>
+    </div>
+    
+    <div class="image-test">
+        <h3>React App Test:</h3>
+        <p><a href="/" target="_blank">Go to main React app</a></p>
+        <p><a href="/about" target="_blank">Go to About page (where Chloe's photo should be)</a></p>
+    </div>
+</body>
+</html>
