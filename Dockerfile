@@ -12,7 +12,7 @@ COPY frontend/ ./
 RUN npm run build
 
 # Spring Boot stage
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:21-jdk-alpine
 
 WORKDIR /app
 
