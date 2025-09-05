@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cache Bust Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+        .test-section { background: white; padding: 20px; margin: 20px 0; border-radius: 10px; }
+        img { max-width: 300px; border: 2px solid #ccc; margin: 10px; }
+        .status { font-weight: bold; margin: 10px 0; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        .refresh-btn { 
+            background: #007bff; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔄 Cache Bust Test - Fresh Load</h1>
+    <p class="info">This page forces fresh loading of all images</p>
+    
+    <button class="refresh-btn" onclick="location.reload(true)">🔄 Force Refresh Page</button>
+    
+    <div class="test-section">
+        <h3>Chloe's Photo (Cache Bust)</h3>
+        <img src="/chloe-headshot.jpg?v=<?php echo time(); ?>" alt="Chloe's Photo" 
+             onload="document.getElementById('chloe-status').innerHTML='✅ Chloe photo loaded successfully'" 
+             onerror="document.getElementById('chloe-status').innerHTML='❌ Chloe photo failed to load'">
+        <p id="chloe-status" class="status">Loading...</p>
+        <p><a href="/chloe-headshot.jpg" target="_blank">Direct link to Chloe's photo</a></p>
+    </div>
+    
+    <div class="test-section">
+        <h3>MPT Logo (Cache Bust)</h3>
+        <img src="/mpt-logo.jpeg?v=<?php echo time(); ?>" alt="MPT Logo" 
+             onload="document.getElementById('logo-status').innerHTML='✅ Logo loaded successfully'" 
+             onerror="document.getElementById('logo-status').innerHTML='❌ Logo failed to load'">
+        <p id="logo-status" class="status">Loading...</p>
+        <p><a href="/mpt-logo.jpeg" target="_blank">Direct link to MPT logo</a></p>
+    </div>
+    
+    <div class="test-section">
+        <h3>React App Links</h3>
+        <p><a href="/" target="_blank">🏠 Main React App</a></p>
+        <p><a href="/about" target="_blank">👤 About Page (Chloe's photo should be here)</a></p>
+        <p><a href="/admin.html" target="_blank">🔐 Admin Panel</a></p>
+    </div>
+    
+    <div class="test-section">
+        <h3>Browser Cache Instructions</h3>
+        <p><strong>If images still don't show:</strong></p>
+        <ul>
+            <li><strong>Chrome/Edge:</strong> Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)</li>
+            <li><strong>Firefox:</strong> Ctrl+F5 (Windows) or Cmd+Shift+R (Mac)</li>
+            <li><strong>Safari:</strong> Cmd+Option+R (Mac)</li>
+            <li><strong>Or:</strong> Open Developer Tools → Network tab → Check "Disable cache"</li>
+        </ul>
+    </div>
+    
+    <script>
+        // Add timestamp to force cache bust
+        const timestamp = new Date().getTime();
+        document.querySelectorAll('img').forEach(img => {
+            if (img.src.includes('?')) {
+                img.src = img.src.split('?')[0] + '?v=' + timestamp;
+            } else {
+                img.src = img.src + '?v=' + timestamp;
+            }
+        });
+    </script>
+</body>
+</html>
