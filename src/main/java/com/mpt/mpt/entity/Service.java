@@ -12,37 +12,33 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
     
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
     
-    @Column(precision = 10, scale = 2)
+    @Column(name = "price", precision = 10, scale = 2)
     private BigDecimal price;
     
-    @Column
+    @Column(name = "category")
     private String category;
     
     @Column(name = "is_active")
-    private Boolean isActive;
+    private Boolean isActive = true;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     
-    // Default constructor
-    public Service() {
-        this.createdAt = LocalDateTime.now();
-        this.isActive = true;
-    }
+    // Constructors
+    public Service() {}
     
-    // Constructor with fields
     public Service(String name, String description, BigDecimal price, String category) {
-        this();
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
+        this.createdAt = LocalDateTime.now();
     }
     
     // Getters and Setters
@@ -100,18 +96,5 @@ public class Service {
     
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-    
-    @Override
-    public String toString() {
-        return "Service{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", category='" + category + '\'' +
-                ", isActive=" + isActive +
-                ", createdAt=" + createdAt +
-                '}';
     }
 }

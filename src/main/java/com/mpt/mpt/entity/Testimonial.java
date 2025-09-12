@@ -14,34 +14,30 @@ public class Testimonial {
     @Column(name = "customer_name", nullable = false)
     private String customerName;
     
-    @Column
+    @Column(name = "rating")
     private Integer rating;
     
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "comment", columnDefinition = "TEXT")
     private String comment;
     
     @Column(name = "service_used")
     private String serviceUsed;
     
     @Column(name = "is_approved")
-    private Boolean isApproved;
+    private Boolean isApproved = false;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     
-    // Default constructor
-    public Testimonial() {
-        this.createdAt = LocalDateTime.now();
-        this.isApproved = false;
-    }
+    // Constructors
+    public Testimonial() {}
     
-    // Constructor with fields
     public Testimonial(String customerName, Integer rating, String comment, String serviceUsed) {
-        this();
         this.customerName = customerName;
         this.rating = rating;
         this.comment = comment;
         this.serviceUsed = serviceUsed;
+        this.createdAt = LocalDateTime.now();
     }
     
     // Getters and Setters
@@ -99,18 +95,5 @@ public class Testimonial {
     
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-    
-    @Override
-    public String toString() {
-        return "Testimonial{" +
-                "id=" + id +
-                ", customerName='" + customerName + '\'' +
-                ", rating=" + rating +
-                ", comment='" + comment + '\'' +
-                ", serviceUsed='" + serviceUsed + '\'' +
-                ", isApproved=" + isApproved +
-                ", createdAt=" + createdAt +
-                '}';
     }
 }

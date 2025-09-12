@@ -12,37 +12,33 @@ public class Package {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
     
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
     
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
     
-    @Column
+    @Column(name = "duration")
     private String duration;
     
     @Column(name = "is_active")
-    private Boolean isActive;
+    private Boolean isActive = true;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     
-    // Default constructor
-    public Package() {
-        this.createdAt = LocalDateTime.now();
-        this.isActive = true;
-    }
+    // Constructors
+    public Package() {}
     
-    // Constructor with fields
     public Package(String name, String description, BigDecimal price, String duration) {
-        this();
         this.name = name;
         this.description = description;
         this.price = price;
         this.duration = duration;
+        this.createdAt = LocalDateTime.now();
     }
     
     // Getters and Setters
@@ -100,18 +96,5 @@ public class Package {
     
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-    
-    @Override
-    public String toString() {
-        return "Package{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", duration='" + duration + '\'' +
-                ", isActive=" + isActive +
-                ", createdAt=" + createdAt +
-                '}';
     }
 }

@@ -1,6 +1,5 @@
 // API Configuration for both local and production environments
-const API_BASE_URL = process.env.REACT_APP_API_URL || 
-  (window.location.hostname === 'localhost' ? 'http://localhost:8081' : 'https://ppt-app-backend.onrender.com');
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 
 // API Service Class
 class ApiService {

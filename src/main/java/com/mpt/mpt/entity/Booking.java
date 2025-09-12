@@ -11,41 +11,37 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
     
-    @Column(nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
     
-    @Column(nullable = false)
+    @Column(name = "phone", nullable = false)
     private String phone;
     
-    @Column(nullable = false)
+    @Column(name = "service", nullable = false)
     private String service;
     
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "message", columnDefinition = "TEXT")
     private String message;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     
     @Column(name = "status")
-    private String status;
+    private String status = "PENDING";
     
-    // Default constructor
-    public Booking() {
-        this.createdAt = LocalDateTime.now();
-        this.status = "PENDING";
-    }
+    // Constructors
+    public Booking() {}
     
-    // Constructor with fields
     public Booking(String name, String email, String phone, String service, String message) {
-        this();
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.service = service;
         this.message = message;
+        this.createdAt = LocalDateTime.now();
     }
     
     // Getters and Setters
@@ -111,19 +107,5 @@ public class Booking {
     
     public void setStatus(String status) {
         this.status = status;
-    }
-    
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", service='" + service + '\'' +
-                ", message='" + message + '\'' +
-                ", createdAt=" + createdAt +
-                ", status='" + status + '\'' +
-                '}';
     }
 }

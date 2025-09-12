@@ -26,20 +26,20 @@ public class PackageService {
         return packageRepository.findById(id);
     }
     
-    public Package createPackage(Package packageEntity) {
+    public Package savePackage(Package packageEntity) {
         return packageRepository.save(packageEntity);
     }
     
     public Package updatePackage(Long id, Package packageDetails) {
         Optional<Package> optionalPackage = packageRepository.findById(id);
         if (optionalPackage.isPresent()) {
-            Package existingPackage = optionalPackage.get();
-            existingPackage.setName(packageDetails.getName());
-            existingPackage.setDescription(packageDetails.getDescription());
-            existingPackage.setPrice(packageDetails.getPrice());
-            existingPackage.setDuration(packageDetails.getDuration());
-            existingPackage.setIsActive(packageDetails.getIsActive());
-            return packageRepository.save(existingPackage);
+            Package packageEntity = optionalPackage.get();
+            packageEntity.setName(packageDetails.getName());
+            packageEntity.setDescription(packageDetails.getDescription());
+            packageEntity.setPrice(packageDetails.getPrice());
+            packageEntity.setDuration(packageDetails.getDuration());
+            packageEntity.setIsActive(packageDetails.getIsActive());
+            return packageRepository.save(packageEntity);
         }
         return null;
     }

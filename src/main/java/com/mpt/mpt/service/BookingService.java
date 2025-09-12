@@ -22,21 +22,21 @@ public class BookingService {
         return bookingRepository.findById(id);
     }
     
-    public Booking createBooking(Booking booking) {
+    public Booking saveBooking(Booking booking) {
         return bookingRepository.save(booking);
     }
     
     public Booking updateBooking(Long id, Booking bookingDetails) {
         Optional<Booking> optionalBooking = bookingRepository.findById(id);
         if (optionalBooking.isPresent()) {
-            Booking existingBooking = optionalBooking.get();
-            existingBooking.setName(bookingDetails.getName());
-            existingBooking.setEmail(bookingDetails.getEmail());
-            existingBooking.setPhone(bookingDetails.getPhone());
-            existingBooking.setService(bookingDetails.getService());
-            existingBooking.setMessage(bookingDetails.getMessage());
-            existingBooking.setStatus(bookingDetails.getStatus());
-            return bookingRepository.save(existingBooking);
+            Booking booking = optionalBooking.get();
+            booking.setName(bookingDetails.getName());
+            booking.setEmail(bookingDetails.getEmail());
+            booking.setPhone(bookingDetails.getPhone());
+            booking.setService(bookingDetails.getService());
+            booking.setMessage(bookingDetails.getMessage());
+            booking.setStatus(bookingDetails.getStatus());
+            return bookingRepository.save(booking);
         }
         return null;
     }
@@ -47,5 +47,13 @@ public class BookingService {
             return true;
         }
         return false;
+    }
+    
+    public List<Booking> getBookingsByStatus(String status) {
+        return bookingRepository.findByStatus(status);
+    }
+    
+    public List<Booking> getBookingsByEmail(String email) {
+        return bookingRepository.findByEmail(email);
     }
 }
