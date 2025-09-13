@@ -24,6 +24,7 @@ import {
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Chatbot from '../components/Chatbot';
+import contentService from '../services/contentService';
 import './Home.css';
 
 /**
@@ -58,12 +59,39 @@ function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [particleCount, setParticleCount] = useState(0);
+  const [dynamicContent, setDynamicContent] = useState({
+    heroTitle: 'Transform Your Movement Performance',
+    heroSubtitle: 'Experience world-class movement training methodologies backed by scientific research and proven results.',
+    aboutTitle: 'Movement Performance Training',
+    aboutDescription: 'MPT specializes in movement performance training, helping athletes and fitness enthusiasts improve their movement quality, efficiency, and performance.',
+    backgroundImage: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop'
+  });
 
   // Premium Refs for Advanced Animations
   const heroRef = useRef(null);
   const statsRef = useRef(null);
   const featuresRef = useRef(null);
   const testimonialsRef = useRef(null);
+
+  // Load dynamic content
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const response = await contentService.getAllContent();
+        if (response.success && response.data) {
+          setDynamicContent(prev => ({
+            ...prev,
+            ...response.data.content,
+            backgroundImage: response.data.backgroundImage || prev.backgroundImage
+          }));
+        }
+      } catch (error) {
+        console.error('Error loading dynamic content:', error);
+      }
+    };
+
+    loadContent();
+  }, []);
 
   // Mouse tracking for dynamic effects
   useEffect(() => {
@@ -286,8 +314,8 @@ function Home() {
         <div className="hero-badge luxury-badge">
           <span>MOVEMENT PERFORMANCE TRAINING</span>
         </div>
-        <h1 className="luxury-title">Transform Your Movement Performance</h1>
-        <p className="luxury-subtitle">Experience world-class movement training methodologies backed by scientific research and proven results. Our comprehensive programs are designed to optimize movement quality, enhance athletic performance, and deliver measurable outcomes for athletes and fitness enthusiasts.</p>
+        <h1 className="luxury-title">{dynamicContent.heroTitle}</h1>
+        <p className="luxury-subtitle">{dynamicContent.heroSubtitle}</p>
         
         <div className="hero-cta">
           <Link to="/booking" className="book-now-btn luxury-btn">
@@ -311,12 +339,12 @@ function Home() {
         <div className="mpt-content">
           <div className="mpt-text">
             <div className="mpt-header">
-              <h2 className="luxury-mpt-title">Movement Performance Training</h2>
+              <h2 className="luxury-mpt-title">{dynamicContent.aboutTitle}</h2>
             </div>
             
             <div className="mpt-description">
               <p className="luxury-mpt-description">
-                MPT specializes in movement performance training, helping athletes and fitness enthusiasts improve their movement quality, efficiency, and performance. We focus on enhancing movement patterns, strength, mobility, and overall athletic capabilities through evidence-based training methods.
+                {dynamicContent.aboutDescription}
               </p>
             </div>
             

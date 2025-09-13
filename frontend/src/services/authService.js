@@ -6,13 +6,14 @@ class AuthService {
     try {
       const response = await apiService.post('/auth/login', credentials);
       
-      if (response.token) {
+      if (response.success && response.token) {
         apiService.setToken(response.token);
         return response;
       }
       
-      throw new Error('Login failed - no token received');
+      throw new Error(response.message || 'Login failed');
     } catch (error) {
+      console.error('Login error:', error);
       throw error;
     }
   }

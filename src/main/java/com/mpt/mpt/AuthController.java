@@ -1,4 +1,4 @@
-package main.java.com.mpt.mpt;
+package com.mpt.mpt;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;

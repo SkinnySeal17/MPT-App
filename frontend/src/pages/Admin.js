@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import authService from '../services/authService';
+import contentService from '../services/contentService';
 import { galleryService } from '../services/galleryService';
 import { servicesService } from '../services/servicesService';
 import { testimonialsService } from '../services/testimonialsService';
@@ -19,17 +20,76 @@ const Admin = () => {
     category: 'training',
     file: null
   });
+  const [contentData, setContentData] = useState({
+    heroTitle: '',
+    heroSubtitle: '',
+    aboutTitle: '',
+    aboutDescription: ''
+  });
+  const [backgroundFile, setBackgroundFile] = useState(null);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await authService.login({ username, password });
-      setIsLoggedIn(true);
-      setUsername('');
-      setPassword('');
-      console.log('Login successful:', response);
+      if (response.success) {
+        setIsLoggedIn(true);
+        setUsername('');
+        setPassword('');
+        console.log('Login successful:', response);
+        // Load current content
+        await loadContent();
+      } else {
+        alert(`Login failed: ${response.message}`);
+      }
     } catch (error) {
+      console.error('Login error:', error);
       alert(`Login failed: ${error.message}`);
+    }
+  };
+
+  const loadContent = async () => {
+    try {
+      const response = await contentService.getAllContent();
+      if (response.success && response.data.content) {
+        setContentData(response.data.content);
+      }
+    } catch (error) {
+      console.error('Error loading content:', error);
+    }
+  };
+
+  const handleContentUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await contentService.updateContent(contentData);
+      if (response.success) {
+        alert('Content updated successfully!');
+      } else {
+        alert(`Update failed: ${response.message}`);
+      }
+    } catch (error) {
+      alert(`Update failed: ${error.message}`);
+    }
+  };
+
+  const handleBackgroundUpload = async (e) => {
+    e.preventDefault();
+    if (!backgroundFile) {
+      alert('Please select a background image');
+      return;
+    }
+
+    try {
+      const response = await contentService.uploadBackgroundImage(backgroundFile);
+      if (response.success) {
+        alert('Background image updated successfully!');
+        setBackgroundFile(null);
+      } else {
+        alert(`Upload failed: ${response.message}`);
+      }
+    } catch (error) {
+      alert(`Upload failed: ${error.message}`);
     }
   };
 
@@ -179,6 +239,18 @@ const Admin = () => {
               onClick={() => setActiveTab('upload')}
             >
               📤 Upload Content
+            </button>
+            <button
+              className={`nav-item ${activeTab === 'content' ? 'active' : ''}`}
+              onClick={() => setActiveTab('content')}
+            >
+              ✏️ Edit Content
+            </button>
+            <button
+              className={`nav-item ${activeTab === 'background' ? 'active' : ''}`}
+              onClick={() => setActiveTab('background')}
+            >
+              🖼️ Background Image
             </button>
           </nav>
         </div>
@@ -415,6 +487,96 @@ const Admin = () => {
 
                 <button type="submit" className="upload-btn">
                   📤 Upload Content
+                </button>
+              </form>
+            </div>
+          )}
+
+          {activeTab === 'content' && (
+            <div className="content-management">
+              <div className="section-header">
+                <h2>Edit Website Content</h2>
+                <p>Update the text content displayed on your website</p>
+              </div>
+              
+              <form onSubmit={handleContentUpdate} className="content-form">
+                <div className="form-group">
+                  <label htmlFor="heroTitle">Hero Title *</label>
+                  <input
+                    type="text"
+                    id="heroTitle"
+                    value={contentData.heroTitle}
+                    onChange={(e) => setContentData(prev => ({ ...prev, heroTitle: e.target.value }))}
+                    required
+                    placeholder="Enter hero title"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="heroSubtitle">Hero Subtitle *</label>
+                  <textarea
+                    id="heroSubtitle"
+                    value={contentData.heroSubtitle}
+                    onChange={(e) => setContentData(prev => ({ ...prev, heroSubtitle: e.target.value }))}
+                    required
+                    placeholder="Enter hero subtitle"
+                    rows="3"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="aboutTitle">About Section Title *</label>
+                  <input
+                    type="text"
+                    id="aboutTitle"
+                    value={contentData.aboutTitle}
+                    onChange={(e) => setContentData(prev => ({ ...prev, aboutTitle: e.target.value }))}
+                    required
+                    placeholder="Enter about title"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="aboutDescription">About Description *</label>
+                  <textarea
+                    id="aboutDescription"
+                    value={contentData.aboutDescription}
+                    onChange={(e) => setContentData(prev => ({ ...prev, aboutDescription: e.target.value }))}
+                    required
+                    placeholder="Enter about description"
+                    rows="4"
+                  />
+                </div>
+
+                <button type="submit" className="update-btn">
+                  💾 Update Content
+                </button>
+              </form>
+            </div>
+          )}
+
+          {activeTab === 'background' && (
+            <div className="background-management">
+              <div className="section-header">
+                <h2>Background Image Management</h2>
+                <p>Upload and manage the background image for your website</p>
+              </div>
+              
+              <form onSubmit={handleBackgroundUpload} className="background-form">
+                <div className="form-group">
+                  <label htmlFor="backgroundFile">Background Image *</label>
+                  <input
+                    type="file"
+                    id="backgroundFile"
+                    accept="image/*"
+                    onChange={(e) => setBackgroundFile(e.target.files[0])}
+                    required
+                  />
+                  <small>Supported formats: JPG, PNG, GIF. Recommended size: 1920x1080px</small>
+                </div>
+
+                <button type="submit" className="upload-btn">
+                  🖼️ Update Background Image
                 </button>
               </form>
             </div>

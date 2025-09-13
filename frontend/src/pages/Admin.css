@@ -523,6 +523,114 @@
   background-color: #059669;
 }
 
+/* Content Management */
+.content-management {
+  max-width: 800px;
+}
+
+.content-form {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.content-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.content-form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.content-form .form-group input,
+.content-form .form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1f2937;
+  background-color: #ffffff;
+  transition: border-color 0.3s ease;
+}
+
+.content-form .form-group input:focus,
+.content-form .form-group textarea:focus {
+  outline: none;
+  border-color: #0066cc;
+}
+
+.update-btn {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.update-btn:hover {
+  background-color: #0052a3;
+}
+
+/* Background Management */
+.background-management {
+  max-width: 600px;
+}
+
+.background-form {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.background-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.background-form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.background-form .form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1f2937;
+  background-color: #ffffff;
+  transition: border-color 0.3s ease;
+}
+
+.background-form .form-group input:focus {
+  outline: none;
+  border-color: #0066cc;
+}
+
+.background-form small {
+  display: block;
+  margin-top: 0.5rem;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .admin-content {
