@@ -65,8 +65,14 @@ class ApiService {
         throw new Error('Server error');
       }
 
-      // Parse response
-      const data = await response.json();
+          // Parse response
+      let data;
+      try {
+        data = await response.json();
+      } catch (e) {
+        // If response is not JSON, create a simple response
+        data = { message: response.statusText || 'Request failed' };
+      }
       
       if (!response.ok) {
         throw new Error(data.message || 'Request failed');

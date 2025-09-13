@@ -25,6 +25,16 @@ class AdminService {
   async deleteUser(userId) {
     return await apiService.delete(`/admin/users/${userId}`);
   }
+
+  // Upload gallery item
+  async uploadGalleryItem(file, title, category) {
+    return await apiService.uploadFile('/admin/gallery/upload', file, { title, category });
+  }
+
+  // Upload video
+  async uploadVideo(file, title, description) {
+    return await apiService.uploadFile('/admin/videos/upload', file, { title, description });
+  }
 }
 
 export default new AdminService();

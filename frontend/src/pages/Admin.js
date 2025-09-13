@@ -13,6 +13,12 @@ const Admin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [uploadData, setUploadData] = useState({
+    title: '',
+    description: '',
+    category: 'training',
+    file: null
+  });
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -38,6 +44,39 @@ const Admin = () => {
       setIsLoggedIn(false);
       setActiveTab('dashboard');
     }
+  };
+
+  const handleFileUpload = async (e) => {
+    e.preventDefault();
+    if (!uploadData.file) {
+      alert('Please select a file to upload');
+      return;
+    }
+
+    try {
+      if (uploadData.file.type.startsWith('video/')) {
+        await adminService.uploadVideo(uploadData.file, uploadData.title, uploadData.description);
+        alert('Video uploaded successfully!');
+      } else {
+        await adminService.uploadGalleryItem(uploadData.file, uploadData.title, uploadData.category);
+        alert('Image uploaded successfully!');
+      }
+      
+      // Reset form
+      setUploadData({
+        title: '',
+        description: '',
+        category: 'training',
+        file: null
+      });
+    } catch (error) {
+      alert(`Upload failed: ${error.message}`);
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setUploadData(prev => ({ ...prev, file }));
   };
 
   if (!isLoggedIn) {
@@ -134,6 +173,12 @@ const Admin = () => {
               onClick={() => setActiveTab('bookings')}
             >
               📅 Bookings
+            </button>
+            <button
+              className={`nav-item ${activeTab === 'upload' ? 'active' : ''}`}
+              onClick={() => setActiveTab('upload')}
+            >
+              📤 Upload Content
             </button>
           </nav>
         </div>
@@ -286,7 +331,7 @@ const Admin = () => {
                 <div className="booking-item">
                   <div className="booking-info">
                     <h3>John Doe</h3>
-                    <p>Kitesurfing Lesson - Beginner</p>
+                    <p>Movement Training - Beginner</p>
                     <p>Date: Dec 15, 2024</p>
                     <p>Status: Confirmed</p>
                   </div>
@@ -298,7 +343,7 @@ const Admin = () => {
                 <div className="booking-item">
                   <div className="booking-info">
                     <h3>Jane Smith</h3>
-                    <p>Hydrofoil Training - Intermediate</p>
+                    <p>Performance Training - Intermediate</p>
                     <p>Date: Dec 18, 2024</p>
                     <p>Status: Pending</p>
                   </div>
@@ -308,6 +353,70 @@ const Admin = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          )}
+
+          {activeTab === 'upload' && (
+            <div className="upload-management">
+              <div className="section-header">
+                <h2>Content Upload</h2>
+                <p>Upload images and videos for your training content</p>
+              </div>
+              
+              <form onSubmit={handleFileUpload} className="upload-form">
+                <div className="form-group">
+                  <label htmlFor="title">Title *</label>
+                  <input
+                    type="text"
+                    id="title"
+                    value={uploadData.title}
+                    onChange={(e) => setUploadData(prev => ({ ...prev, title: e.target.value }))}
+                    required
+                    placeholder="Enter content title"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="description">Description</label>
+                  <textarea
+                    id="description"
+                    value={uploadData.description}
+                    onChange={(e) => setUploadData(prev => ({ ...prev, description: e.target.value }))}
+                    placeholder="Enter content description"
+                    rows="3"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="category">Category</label>
+                  <select
+                    id="category"
+                    value={uploadData.category}
+                    onChange={(e) => setUploadData(prev => ({ ...prev, category: e.target.value }))}
+                  >
+                    <option value="training">Training</option>
+                    <option value="facility">Facility</option>
+                    <option value="equipment">Equipment</option>
+                    <option value="testimonial">Testimonial</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="file">File *</label>
+                  <input
+                    type="file"
+                    id="file"
+                    accept="image/*,video/*"
+                    onChange={handleFileChange}
+                    required
+                  />
+                  <small>Supported formats: Images (JPG, PNG, GIF) and Videos (MP4, MOV, AVI)</small>
+                </div>
+
+                <button type="submit" className="upload-btn">
+                  📤 Upload Content
+                </button>
+              </form>
             </div>
           )}
         </div>

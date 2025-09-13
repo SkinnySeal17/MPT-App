@@ -60,10 +60,10 @@ const Booking = () => {
         {/* Left Side - Consultation Details */}
         <div className="consultation-details">
           <h1>Book your free 15-minute consultation.</h1>
-          <h2>Your First Step to Better Performance on the Water! 🌊</h2>
+          <h2>Your First Step to Better Movement Performance! 💪</h2>
           
           <p className="consultation-intro">
-            In this quick, personalized 15-minute consultation, we'll dive into your kitesurfing or wing foiling goals and assess your current mobility, strength, and balance. Here's what you can expect:
+            In this quick, personalized 15-minute consultation, we'll dive into your movement and performance goals and assess your current mobility, strength, and movement patterns. Here's what you can expect:
           </p>
           
           <ul className="consultation-benefits">
@@ -71,15 +71,15 @@ const Booking = () => {
               <strong>Personalized Assessment</strong> – We'll discuss any challenges you're facing, from flexibility to injury concerns, and pinpoint key areas for improvement.
             </li>
             <li>
-              <strong>Goal Setting</strong> – Together, we'll outline specific goals that will enhance your performance, whether it's boosting your stamina or perfecting your technique.
+              <strong>Goal Setting</strong> – Together, we'll outline specific goals that will enhance your movement performance, whether it's improving mobility, building strength, or perfecting your movement patterns.
             </li>
             <li>
-              <strong>Actionable Next Steps</strong> – Leave with clear, tailored advice on how to kickstart your training journey, with exercises or programs that fit your lifestyle.
+              <strong>Actionable Next Steps</strong> – Leave with clear, tailored advice on how to kickstart your movement training journey, with exercises or programs that fit your lifestyle and goals.
             </li>
           </ul>
           
           <p className="consultation-conclusion">
-            This is your opportunity to ask questions and learn how our expert training can help you maximize your potential. Let's take the first step together toward becoming stronger, more flexible, and unstoppable on the water! 🏄‍♀️💪
+            This is your opportunity to ask questions and learn how our expert movement training can help you maximize your potential. Let's take the first step together toward becoming stronger, more mobile, and unstoppable in your performance! 💪🏃‍♀️
           </p>
           
           <p className="cta-text">

@@ -58,16 +58,20 @@
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #333;
-  font-weight: 600;
+  color: #1f2937;
+  font-weight: 700;
+  font-size: 0.95rem;
 }
 
 .form-group input {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #d1d5db;
   border-radius: 8px;
   font-size: 1rem;
+  font-weight: 500;
+  color: #1f2937;
+  background-color: #ffffff;
   transition: border-color 0.3s ease;
 }
 
@@ -448,6 +452,75 @@
 
 .delete-btn:hover {
   background-color: #b91c1c;
+}
+
+/* Upload Management */
+.upload-management {
+  max-width: 600px;
+}
+
+.upload-form {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.upload-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.upload-form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.upload-form .form-group input,
+.upload-form .form-group select,
+.upload-form .form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1f2937;
+  background-color: #ffffff;
+  transition: border-color 0.3s ease;
+}
+
+.upload-form .form-group input:focus,
+.upload-form .form-group select:focus,
+.upload-form .form-group textarea:focus {
+  outline: none;
+  border-color: #0066cc;
+}
+
+.upload-form small {
+  display: block;
+  margin-top: 0.5rem;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.upload-btn {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.upload-btn:hover {
+  background-color: #059669;
 }
 
 /* Responsive Design */

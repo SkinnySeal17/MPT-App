@@ -286,8 +286,8 @@ function Home() {
         <div className="hero-badge luxury-badge">
           <span>MOVEMENT PERFORMANCE TRAINING</span>
         </div>
-        <h1 className="luxury-title">Unlock Your Performance Potential</h1>
-        <p className="luxury-subtitle">Experience world-class training methodologies backed by scientific research and proven results. Our comprehensive programs are designed to optimize performance, enhance capabilities, and deliver measurable outcomes for elite athletes and professionals.</p>
+        <h1 className="luxury-title">Transform Your Movement Performance</h1>
+        <p className="luxury-subtitle">Experience world-class movement training methodologies backed by scientific research and proven results. Our comprehensive programs are designed to optimize movement quality, enhance athletic performance, and deliver measurable outcomes for athletes and fitness enthusiasts.</p>
         
         <div className="hero-cta">
           <Link to="/booking" className="book-now-btn luxury-btn">
@@ -316,7 +316,7 @@ function Home() {
             
             <div className="mpt-description">
               <p className="luxury-mpt-description">
-                MPT specializes in movement performance training, helping athletes and professionals improve their movement quality, efficiency, and performance. We focus on enhancing movement patterns, strength, and overall athletic capabilities.
+                MPT specializes in movement performance training, helping athletes and fitness enthusiasts improve their movement quality, efficiency, and performance. We focus on enhancing movement patterns, strength, mobility, and overall athletic capabilities through evidence-based training methods.
               </p>
             </div>
             

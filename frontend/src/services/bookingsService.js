@@ -22,7 +22,7 @@ class BookingsService {
   // Create new booking
   async createBooking(bookingData) {
     try {
-      return await apiService.post('/bookings', bookingData);
+      return await apiService.post('/bookings/create', bookingData);
     } catch (error) {
       throw error;
     }
