@@ -5,7 +5,7 @@ import { galleryService } from '../services/galleryService';
 import { servicesService } from '../services/servicesService';
 import { testimonialsService } from '../services/testimonialsService';
 import { bookingsService } from '../services/bookingsService';
-import { adminService } from '../services/adminService';
+import adminService  from '../services/adminService';
 import { packagesService } from '../services/packagesService';
 import './Admin.css';
 
